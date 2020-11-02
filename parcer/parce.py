@@ -7,6 +7,8 @@ connection = pymysql.connect(host=env.database_connection['host'], user=env.data
 params = {'api_key': env.eliky_api_key}
 
 def parse_locality():
+    connection.cursor().execute('truncate locality;')
+
     api_endpoint = 'http://eliky.in.ua/api/locality'  # &page=".$step
     i = 1
     while True:
@@ -25,7 +27,6 @@ def parse_locality():
         if data['page']['total'] == i:
             break
         i += 1
-    connection.close()
     return i
 
 
@@ -51,7 +52,6 @@ def parse_medicament():
         if data['page']['total'] == i:
             break
         i += 1
-    connection.close()
     return i
 
 
@@ -77,7 +77,6 @@ def parse_package():
         if data['page']['total'] == i:
             break
         i += 1
-    connection.close()
     return i
 
 
@@ -103,7 +102,6 @@ def parse_category():
         if data['page']['total'] == i:
             break
         i += 1
-    connection.close()
     return i
 
 
@@ -128,7 +126,6 @@ def parse_hospital():
         if data['page']['total'] == i:
             break
         i += 1
-    connection.close()
     return i
 
 

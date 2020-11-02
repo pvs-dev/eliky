@@ -32,7 +32,7 @@ class ApiController extends Controller
             $locality->andWhere(['region'=>$region]);
         }
         $count = ceil($locality->count()/$limit);
-        $res = $locality->limit($limit)->offset(($page - 1) * $limit)->all();
+        $res = $locality->limit($limit)->offset(($page - 1) * $limit)->orderBy('title')->all();
         return [
             'data'=>$res,
             'pages'=>[
@@ -51,7 +51,7 @@ class ApiController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $medicament = Medicament::find();
         $count = ceil($medicament->count()/$limit);
-        $res = $medicament->limit($limit)->offset(($page - 1) * $limit)->all();
+        $res = $medicament->limit($limit)->offset(($page - 1) * $limit)->orderBy('title')->all();
         return [
             'data'=>$res,
             'pages'=>[
@@ -107,7 +107,7 @@ class ApiController extends Controller
             $hospitals->andWhere(['locality_id'=>$locality_id]);
         }
         $count = ceil($hospitals->count()/$limit);
-        $res = $hospitals->limit($limit)->offset(($page - 1) * $limit)->all();
+        $res = $hospitals->limit($limit)->offset(($page - 1) * $limit)->orderBy('title')->all();
         return [
             'data'=>$res,
             'pages'=>[
