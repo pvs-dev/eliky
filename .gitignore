@@ -6,6 +6,8 @@
 # phpstorm project files
 .idea
 
+/parcer/env.py
+
 # netbeans project files
 nbproject
 
