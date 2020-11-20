@@ -12,6 +12,7 @@ use common\models\Package;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 /**
@@ -209,9 +210,12 @@ class ApiController extends Controller
     public function actionSendMail(){
         Yii::$app->request->enableCsrfValidation = false;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::error(VarDumper::dumpAsString(Yii::$app->request->post()));
         if (Yii::$app->request->post()) {
             $email = Yii::$app->request->post('email');
             $hospital = Yii::$app->request->post('hospital');
+            Yii::error(VarDumper::dumpAsString($hospital));
+
             $text = Yii::$app->request->post('text');
             $phone = Yii::$app->request->post('phone');
             $fio = Yii::$app->request->post('fio');
@@ -224,6 +228,8 @@ class ApiController extends Controller
                 ];
             }
             try {
+                Yii::error(VarDumper::dumpAsString($emailHospital));
+
                 Yii::$app->mailer->compose()
                     ->setFrom('mail.eliky@gmail.com')
                     ->setTo($emailHospital->email)
