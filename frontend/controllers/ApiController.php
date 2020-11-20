@@ -6,9 +6,12 @@ use common\models\Availability;
 use common\models\Hospital;
 use common\models\HospitalCategory;
 use common\models\Locality;
+use common\models\MailHospital;
 use common\models\Medicament;
 use common\models\Package;
 use Yii;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
 use yii\web\Controller;
 
 /**
@@ -18,6 +21,17 @@ class ApiController extends Controller
 {
     const LIMIT = 100;
 
+
+
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
     /**
      * @param int $limit
      * @param string $region
@@ -39,6 +53,7 @@ class ApiController extends Controller
                 'current'=>$page,
                 'count'=>$count
             ],
+            'status'=>'success'
         ];
     }
 
@@ -58,6 +73,7 @@ class ApiController extends Controller
                 'current'=>$page,
                 'count'=>$count
             ],
+            'status'=>'success'
         ];
     }
 
@@ -74,6 +90,7 @@ class ApiController extends Controller
                 'current'=>1,
                 'count'=>1
             ],
+            'status'=>'success'
         ];
     }
     /**
@@ -89,6 +106,7 @@ class ApiController extends Controller
                 'current'=>1,
                 'count'=>1
             ],
+            'status'=>'success'
         ];
     }
 
@@ -114,6 +132,7 @@ class ApiController extends Controller
                 'current'=>$page,
                 'count'=>$count
             ],
+            'status'=>'success'
         ];
     }
 
@@ -136,6 +155,7 @@ class ApiController extends Controller
                 'current'=>$page,
                 'count'=>$count
             ],
+            'status'=>'success'
         ];
     }
 
@@ -157,7 +177,63 @@ class ApiController extends Controller
                 'current'=>$page,
                 'count'=>$count
             ],
+            'status'=>'success'
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actionMailHospitals(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $hospitals = MailHospital::find()->orderBy('rergion')->all();
+        return [
+            'data'=>$hospitals,
+            'status'=>'success'
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actionSendMail(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $this->enableCsrfValidation = false;
+        if (Yii::$app->request->post()) {
+            $email = Yii::$app->request->post('email');
+            $hospital = Yii::$app->request->post('hospital');
+            $text = Yii::$app->request->post('text');
+            $phone = Yii::$app->request->post('phone');
+            $fio = Yii::$app->request->post('fio');
+            $emailHospital = MailHospital::find()->where(['id'=>$hospital])->one();
+            if (empty($emailHospital)){
+                return [
+                    'data'=>[],
+                    'status'=>'error',
+                    'message' => 'Больница не найдена'
+                ];
+            }
+            try {
+                Yii::$app->mailer->compose()
+                    ->setFrom('mail.eliky@gmail.com')
+                    ->setTo($emailHospital->email)
+                    ->setSubject('Сообщение от пользователя eliky - ' . $email)
+                    ->setTextBody($text)
+                    ->send();
+            } catch (\Exception $e){
+                return [
+                    'data'=>[],
+                    'status'=>'error',
+                    'message' => $e->getMessage()
+                ];
+            }
+            return [
+                'data'=>[],
+                'status'=>'success',
+                'message' => ''
+            ];
+        }
     }
 
 
