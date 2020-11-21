@@ -27,7 +27,6 @@ def parse_locality():
                     result['id'], result['title'], result['type'], result['district'], result['region']['title']))
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -54,7 +53,6 @@ def parse_medicament():
                                          (result['dosage_forms'][0] if len(result['dosage_forms']) > 0 else '')))
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -81,7 +79,6 @@ def parse_package():
 
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -108,7 +105,6 @@ def parse_category():
                                          (result['hospital']['title'] if len(result['hospital']) > 0 else None)))
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -141,7 +137,6 @@ def parse_hospital():
                                          (result['location']['geo_lng'] if len(result['location']) > 0 else None)))
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -175,7 +170,6 @@ def parse_hospital_category(hospital_id):
                                                  result['distribution_category']) > 0 else None)))
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
@@ -210,7 +204,6 @@ def parse_availability(hospital_id):
 
             connection.commit()
         except Exception as e:
-            print(result)
             print(e)
         time.sleep(1)
         if data['page']['total'] == i:
