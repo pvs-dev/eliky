@@ -1,6 +1,7 @@
 import requests
 import pymysql
 import env
+import time
 
 connection = pymysql.connect(host=env.database_connection['host'], user=env.database_connection['user'], password=env.database_connection['password'], db=env.database_connection['db'], charset=env.database_connection['charset'],
                              cursorclass=pymysql.cursors.DictCursor)
@@ -24,6 +25,8 @@ def parse_locality():
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -49,6 +52,8 @@ def parse_medicament():
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -74,6 +79,8 @@ def parse_package():
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -99,6 +106,8 @@ def parse_category():
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -123,6 +132,8 @@ def parse_hospital():
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -149,6 +160,8 @@ def parse_hospital_category(hospital_id):
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
@@ -175,6 +188,8 @@ def parse_availability(hospital_id):
                     print(result)
                     print(e)
         connection.commit()
+        if i % 2 == 0:
+            time.sleep(1)
         if data['page']['total'] == i:
             break
         i += 1
