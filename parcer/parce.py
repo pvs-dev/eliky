@@ -206,8 +206,10 @@ def parse_availability(hospital_id):
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
+        total = -1
+        if data.get('page'):
+            if data.get('page').get('total') == i:
+                break
         i += 1
     return i
 
