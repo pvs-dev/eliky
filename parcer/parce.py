@@ -26,11 +26,12 @@ def parse_locality():
                     cursor.execute(sql, (
                     result['id'], result['title'], result['type'], result['district'], result['region']['title']))
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -52,11 +53,12 @@ def parse_medicament():
                     cursor.execute(sql, (result['id'], result['title'], result['type'], result['inn'], result['atc'],
                                          (result['dosage_forms'][0] if len(result['dosage_forms']) > 0 else '')))
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -78,11 +80,12 @@ def parse_package():
                     cursor.execute(sql, (result['id'], result['title'], result['description']))
 
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -104,11 +107,12 @@ def parse_category():
                                          (result['hospital']['id'] if len(result['hospital']) > 0 else None),
                                          (result['hospital']['title'] if len(result['hospital']) > 0 else None)))
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -136,11 +140,12 @@ def parse_hospital():
                                          (result['location']['geo_lat'] if len(result['location']) > 0 else None),
                                          (result['location']['geo_lng'] if len(result['location']) > 0 else None)))
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -169,11 +174,12 @@ def parse_hospital_category(hospital_id):
                                              result['distribution_category']['title'] if len(
                                                  result['distribution_category']) > 0 else None)))
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        if data['page']['total'] == i:
-            break
         i += 1
     return i
 
@@ -203,13 +209,12 @@ def parse_availability(hospital_id):
                     (result['quantities'][0]['value'] if len(result['quantities']) > 0 else None)))
 
             connection.commit()
+            if data.get('page'):
+                if data.get('page').get('total') == i:
+                    break
         except Exception as e:
             print(e)
         time.sleep(1)
-        total = -1
-        if data.get('page'):
-            if data.get('page').get('total') == i:
-                break
         i += 1
     return i
 
