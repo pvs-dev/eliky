@@ -18,6 +18,7 @@ def parse_locality():
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
             with connection.cursor() as cursor:
@@ -31,7 +32,6 @@ def parse_locality():
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -44,6 +44,7 @@ def parse_medicament():
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
 
@@ -58,7 +59,6 @@ def parse_medicament():
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -71,6 +71,7 @@ def parse_package():
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
 
@@ -85,7 +86,6 @@ def parse_package():
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -98,6 +98,7 @@ def parse_category():
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
             with connection.cursor() as cursor:
@@ -112,7 +113,6 @@ def parse_category():
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -125,6 +125,7 @@ def parse_hospital():
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
             with connection.cursor() as cursor:
@@ -145,7 +146,6 @@ def parse_hospital():
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -156,6 +156,7 @@ def parse_hospital_category(hospital_id):
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
             if 'error' in data:
@@ -179,7 +180,6 @@ def parse_hospital_category(hospital_id):
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
@@ -190,6 +190,7 @@ def parse_availability(hospital_id):
     while True:
         params['page'] = i
         try:
+            time.sleep(1)
             r = requests.get(url=api_endpoint, params=params)
             data = r.json()
             if 'error' in data:
@@ -214,7 +215,6 @@ def parse_availability(hospital_id):
                     break
         except Exception as e:
             print(e)
-        time.sleep(1)
         i += 1
     return i
 
