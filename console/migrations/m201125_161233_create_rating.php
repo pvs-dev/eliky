@@ -12,7 +12,7 @@ class m201125_161233_create_rating extends Migration
             'id' => $this->primaryKey(),
             'hospital_id' => $this->integer(11),
             'rating' => $this->integer(11),
-            'email' => $this->string(255),
+            'name' => $this->string(255),
             'device_id' => $this->string(255),
             'comment' => $this->text(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')

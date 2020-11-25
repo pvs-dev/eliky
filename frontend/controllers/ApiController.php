@@ -266,9 +266,20 @@ class ApiController extends Controller
             $rating = Yii::$app->request->post('rating');
             $comment = Yii::$app->request->post('comment');
             $device_id = Yii::$app->request->post('device_id');
+            $name = Yii::$app->request->post('name');
+
+//            $lastRating = Rating::find()->select('create_at')->where(['device_id'=>$device_id, 'hospital_id'=>$hospital])->orderBy('create_at desc')->one();
+//            if (!empty($lastRating) && (time() - strtotime($lastRating->create_at))<864000){
+//                return [
+//                    'data'=>[],
+//                    'status'=>'error',
+//                    'message' => 'Нельзя добавлять оценку чаще чем 1 раз в 10 дней. Последняя оценка в '.$lastRating->create_at
+//                ];
+//            }
             $ratingModel = new Rating();
             $ratingModel->hospital_id = $hospital;
             $ratingModel->rating = $rating;
+            $ratingModel->name = $name;
             $ratingModel->comment = $comment;
             $ratingModel->device_id = $device_id;
             if($ratingModel->save()){
@@ -287,5 +298,10 @@ class ApiController extends Controller
             }
 
         }
+    }
+    public function actionRatingList($email_hospital_id){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $ratings = Rating::find()->where(['hospital_id'=>$email_hospital_id])->asArray()->all();
+        return $ratings;
     }
 }

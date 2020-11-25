@@ -64,12 +64,16 @@ $this->title = 'liky api';
                     {<br>
                     &emsp;'email_hospital_id':'5',<br>
                     &emsp;'rating':'5',<br>
+                    &emsp;'name':'Василий',<br>
                     &emsp;'comment':'this is my favorite hospital',<br>
                     &emsp;'device_id':'any$ym0LS'<br>
                     }<br><br>
 
                     Ответ: {"data":[],"status":"success","message":""}
                 </div>
+            </div>
+            <div class="col-lg-12">
+                <b>Get:</b> <a href="/api/rating-list?email_hospital_id=5">/api/mail-hospitals?email_hospital_id=5</a> - <i>рейтинги по больнице</i>
             </div>
         </div>
 

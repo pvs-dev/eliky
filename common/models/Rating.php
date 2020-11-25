@@ -11,9 +11,10 @@ use yii\helpers\VarDumper;
  * @property int $id
  * @property int|null $hospital_id
  * @property int|null $rating
- * @property string|null $email
+ * @property string|null $name
  * @property string|null $device_id
  * @property string|null $comment
+ * @property string|null $create_at
  *
  * @property MailHospital $hospital
  */
@@ -35,8 +36,9 @@ class Rating extends \yii\db\ActiveRecord
         return [
             [['hospital_id','rating'], 'integer'],
             [['comment'], 'string'],
-            [['email', 'device_id'], 'string', 'max' => 255],
+            [['name', 'device_id'], 'string', 'max' => 255],
             [['hospital_id'], 'exist', 'skipOnError' => true, 'targetClass' => MailHospital::className(), 'targetAttribute' => ['hospital_id' => 'id']],
+            [['create_at'], 'safe']
         ];
     }
 
@@ -49,14 +51,14 @@ class Rating extends \yii\db\ActiveRecord
             'id' => 'ID',
             'hospital_id' => 'Hospital ID',
             'rating' => 'Rating',
-            'email' => 'Email',
+            'name' => 'name',
             'device_id' => 'Device ID',
             'comment' => 'Comment',
         ];
     }
 
     /**
-     * Gets query for [[Hospital0]].
+     * Gets query for [[Hospital]].
      *
      * @return \yii\db\ActiveQuery
      */
