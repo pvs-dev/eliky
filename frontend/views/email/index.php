@@ -39,6 +39,8 @@ $.get('/email/check?id='+data_id, function(){
             'hospital.hospital',
             [
                 'label' => 'Статус перевірки',
+                'attribute' => 'checked',
+                'filter'=>['0'=>'не перевірений', '1'=>'перевірений'],
                 'format' => 'raw',
                 'value' => function($data){
                     return $data->checked?
