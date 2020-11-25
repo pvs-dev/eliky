@@ -126,9 +126,6 @@ a.desc:after {
 
 .check_email{
     width: 100%;
-    font-size: 15px;
-}
-
-.pointer{
-    cursor: pointer;
+    font-size: 17px;
+    color: blue;
 }
