@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Email;
 use common\models\search\EmailSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
