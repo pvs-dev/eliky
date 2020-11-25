@@ -10,6 +10,7 @@ use common\models\Locality;
 use common\models\MailHospital;
 use common\models\Medicament;
 use common\models\Package;
+use common\models\Rating;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
@@ -211,7 +212,6 @@ class ApiController extends Controller
     public function actionSendMail(){
         Yii::$app->request->enableCsrfValidation = false;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        Yii::error(VarDumper::dumpAsString(Yii::$app->request->post()));
         if (Yii::$app->request->post()) {
             $email = Yii::$app->request->post('email');
             $hospital = Yii::$app->request->post('hospital');
@@ -227,8 +227,6 @@ class ApiController extends Controller
                 ];
             }
             try {
-                Yii::error(VarDumper::dumpAsString($emailHospital));
-
                 Yii::$app->mailer->compose('@app/views/api/mail',['email'=>$email,'phone'=>$phone, 'fio'=>$fio, 'text'=>$text])
                     ->setFrom('mail.eliky@gmail.com')
                     ->setTo($emailHospital->email)
@@ -257,5 +255,37 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
+    public function actionRating(){
+        Yii::$app->request->enableCsrfValidation = false;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (Yii::$app->request->post()) {
+            $hospital = Yii::$app->request->post('email_hospital_id');
+            $rating = Yii::$app->request->post('rating');
+            $comment = Yii::$app->request->post('comment');
+            $device_id = Yii::$app->request->post('device_id');
+            $ratingModel = new Rating();
+            $ratingModel->hospital_id = $hospital;
+            $ratingModel->rating = $rating;
+            $ratingModel->comment = $comment;
+            $ratingModel->device_id = $device_id;
+            if($ratingModel->save()){
+                $ratingModel->calcRating();
+                return [
+                    'data'=>[],
+                    'status'=>'success',
+                    'message' => ''
+                ];
+            }else{
+                return [
+                    'data'=>[],
+                    'status'=>'error',
+                    'message' => 'Ошибка при сохранении'
+                ];
+            }
 
+        }
+    }
 }

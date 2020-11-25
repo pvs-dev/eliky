@@ -48,7 +48,7 @@ $.get('/email/check?id='+data_id, function(){
                         '<span class="glyphicon pointer check_email check_email_js glyphicon-minus text-center" data-id="'.$data->id.'"></span>';
                 },
             ],
-
+            'created_at',
             ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>

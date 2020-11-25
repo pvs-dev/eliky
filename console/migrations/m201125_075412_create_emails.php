@@ -23,7 +23,7 @@ class m201125_075412_create_emails extends Migration
 
     public function down()
     {
-        $this->dropIndex('FK_email_hospital_id','email');
+        $this->dropForeignKey('FK_email_hospital_id','email');
         $this->dropTable('email');
     }
 }

@@ -50,9 +50,22 @@ $this->title = 'liky api';
                     {<br>
                     &emsp;'email':'frommail@gmail.com',<br>
                     &emsp;'hospital': '4',<br>
-                    &emsp;'text':'тестовое сообщение'<br>
-                    &emsp;'phone':'+380991122333'<br>
+                    &emsp;'text':'тестовое сообщение',<br>
+                    &emsp;'phone':'+380991122333',<br>
                     &emsp;'fio':'Василий Пупкин'<br>
+                    }<br><br>
+
+                    Ответ: {"data":[],"status":"success","message":""}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <b>Post:</b> <a href="/api/rating">/api/rating</a> - <i>Отправка рейтинга</i>
+                <div class="api_about">
+                    {<br>
+                    &emsp;'email_hospital_id':'5',<br>
+                    &emsp;'rating':'5',<br>
+                    &emsp;'comment':'this is my favorite hospital',<br>
+                    &emsp;'device_id':'any$ym0LS'<br>
                     }<br><br>
 
                     Ответ: {"data":[],"status":"success","message":""}

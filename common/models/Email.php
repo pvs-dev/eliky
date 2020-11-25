@@ -14,6 +14,7 @@ use Yii;
  * @property string|null $text
  * @property int|null $hospital_id
  * @property int|null $checked
+ * @property string|null $created_at
  *
  * @property MailHospital $hospital
  */
@@ -35,6 +36,7 @@ class Email extends \yii\db\ActiveRecord
         return [
             [['fio', 'text'], 'string'],
             [['hospital_id', 'checked'], 'integer'],
+            [['created_at'], 'safe'],
             [['email', 'phone'], 'string', 'max' => 255],
             [['hospital_id'], 'exist', 'skipOnError' => true, 'targetClass' => MailHospital::className(), 'targetAttribute' => ['hospital_id' => 'id']],
         ];
@@ -48,11 +50,12 @@ class Email extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'email' => 'Email',
-            'phone' => 'Номер телефону',
-            'fio' => 'ПІБ',
-            'text' => 'Текст повідомлення',
-            'hospital_id' => 'Лікарня',
-            'checked' => 'Статус перевірки',
+            'phone' => 'Phone',
+            'fio' => 'Fio',
+            'text' => 'Text',
+            'hospital_id' => 'Hospital ID',
+            'checked' => 'Checked',
+            'created_at' => 'Created At',
         ];
     }
 

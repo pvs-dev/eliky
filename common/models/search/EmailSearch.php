@@ -18,7 +18,7 @@ class EmailSearch extends Email
     {
         return [
             [['id', 'hospital_id', 'checked'], 'integer'],
-            [['email', 'phone', 'fio', 'text'], 'safe'],
+            [['email','created_at', 'phone', 'fio', 'text'], 'safe'],
         ];
     }
 
@@ -66,6 +66,7 @@ class EmailSearch extends Email
         $query->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'fio', $this->fio])
+            ->andFilterWhere(['like', 'created_at', $this->created_at])
             ->andFilterWhere(['like', 'text', $this->text]);
 
         return $dataProvider;

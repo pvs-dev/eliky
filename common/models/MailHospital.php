@@ -13,6 +13,10 @@ use Yii;
  * @property string|null $address
  * @property string|null $phone
  * @property string|null $email
+ * @property float|null $rating
+ *
+ * @property Email[] $emails
+ * @property Rating[] $ratings
  */
 class MailHospital extends \yii\db\ActiveRecord
 {
@@ -31,6 +35,7 @@ class MailHospital extends \yii\db\ActiveRecord
     {
         return [
             [['hospital', 'address'], 'string'],
+            [['rating'], 'number'],
             [['rergion', 'phone', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -42,11 +47,32 @@ class MailHospital extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'rergion' => 'Район',
-            'hospital' => 'Медичний заклад',
-            'address' => 'Адреса',
-            'phone' => 'Телефон',
-            'email' => 'Електронна адреса',
+            'rergion' => 'Rergion',
+            'hospital' => 'Hospital',
+            'address' => 'Address',
+            'phone' => 'Phone',
+            'email' => 'Email',
+            'rating' => 'Rating',
         ];
+    }
+
+    /**
+     * Gets query for [[Emails]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmails()
+    {
+        return $this->hasMany(Email::className(), ['hospital_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Ratings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRatings()
+    {
+        return $this->hasMany(Rating::className(), ['hospital_id' => 'id']);
     }
 }
