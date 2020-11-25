@@ -123,3 +123,12 @@ a.desc:after {
     padding: 15px;
     background: #eee;
 }
+
+.check_email{
+    width: 100%;
+    font-size: 15px;
+}
+
+.pointer{
+    cursor: pointer;
+}

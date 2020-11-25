@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Availability;
+use common\models\Email;
 use common\models\Hospital;
 use common\models\HospitalCategory;
 use common\models\Locality;
@@ -214,8 +215,6 @@ class ApiController extends Controller
         if (Yii::$app->request->post()) {
             $email = Yii::$app->request->post('email');
             $hospital = Yii::$app->request->post('hospital');
-            Yii::error(VarDumper::dumpAsString($hospital));
-
             $text = Yii::$app->request->post('text');
             $phone = Yii::$app->request->post('phone');
             $fio = Yii::$app->request->post('fio');
@@ -230,12 +229,19 @@ class ApiController extends Controller
             try {
                 Yii::error(VarDumper::dumpAsString($emailHospital));
 
-                Yii::$app->mailer->compose()
+                Yii::$app->mailer->compose('@app/views/api/mail',['email'=>$email,'phone'=>$phone, 'fio'=>$fio, 'text'=>$text])
                     ->setFrom('mail.eliky@gmail.com')
                     ->setTo($emailHospital->email)
-                    ->setSubject('Сообщение от пользователя eliky - ' . $email)
-                    ->setTextBody($text)
+                    ->setSubject('Повідомлення від користувача eliky - ' . $email)
                     ->send();
+                $email_model = new Email();
+                $email_model->email = $email;
+                $email_model->phone = $phone;
+                $email_model->fio = $fio;
+                $email_model->hospital_id = $hospital;
+                $email_model->text = $email;
+                $email_model->checked = 0;
+                $email_model->save();
             } catch (\Exception $e){
                 return [
                     'data'=>[],
