@@ -290,10 +290,12 @@ class ApiController extends Controller
                     'message' => ''
                 ];
             }else{
+                $ratingModel->validate();
                 return [
                     'data'=>[],
                     'status'=>'error',
-                    'message' => 'Ошибка при сохранении'
+                    'message' => 'Ошибка при сохранении',
+                    'hh' => $ratingModel->errors
                 ];
             }
 
