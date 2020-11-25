@@ -40,7 +40,7 @@ $.get('/email/check?id='+data_id, function(){
             [
                 'label' => 'Статус перевірки',
                 'attribute' => 'checked',
-                'filter'=>['0'=>'не перевірений', '1'=>'перевірений'],
+                'filter'=>['0'=>'Не перевірений', '1'=>'Перевірений'],
                 'format' => 'raw',
                 'value' => function($data){
                     return $data->checked?
