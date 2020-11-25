@@ -129,3 +129,7 @@ a.desc:after {
     font-size: 17px;
     color: blue;
 }
+
+.pointer{
+    cursor: pointer;
+}
