@@ -47,7 +47,7 @@ $.get('/email/check?id='+data_id, function(){
                 },
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

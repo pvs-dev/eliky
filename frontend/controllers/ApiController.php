@@ -239,7 +239,7 @@ class ApiController extends Controller
                 $email_model->phone = $phone;
                 $email_model->fio = $fio;
                 $email_model->hospital_id = $hospital;
-                $email_model->text = $email;
+                $email_model->text = $text;
                 $email_model->checked = 0;
                 $email_model->save();
             } catch (\Exception $e){
