@@ -12,6 +12,7 @@ use common\models\Medicament;
 use common\models\Package;
 use common\models\Rating;
 use Yii;
+use yii\db\Expression;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
 use yii\helpers\VarDumper;
@@ -303,7 +304,13 @@ class ApiController extends Controller
     }
     public function actionRatingList($email_hospital_id){
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $ratings = Rating::find()->where(['hospital_id'=>$email_hospital_id])->orderBy('id desc')->limit(50)->asArray()->all();
+        $ratings = Rating::find()
+            ->with('hospital')
+            ->where(['rating.hospital_id'=>$email_hospital_id])
+            ->orderBy('rating.id desc')
+            ->limit(50)
+            ->asArray()
+            ->all();
         return $ratings;
     }
 }
