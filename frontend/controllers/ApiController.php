@@ -305,12 +305,12 @@ class ApiController extends Controller
     public function actionRatingList($email_hospital_id){
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $ratings = Rating::find()
-            ->with('hospital')
             ->where(['rating.hospital_id'=>$email_hospital_id])
             ->orderBy('rating.id desc')
             ->limit(50)
             ->asArray()
             ->all();
-        return $ratings;
+        $hosptial = MailHospital::find()->where(['id'=>$email_hospital_id])->asArray()->one();
+        return ['ratings'=>$ratings, 'hospital'=>$hosptial ];
     }
 }
