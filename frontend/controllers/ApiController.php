@@ -269,14 +269,14 @@ class ApiController extends Controller
             $device_id = Yii::$app->request->post('device_id');
             $name = Yii::$app->request->post('name');
 
-//            $lastRating = Rating::find()->select('create_at')->where(['device_id'=>$device_id, 'hospital_id'=>$hospital])->orderBy('create_at desc')->one();
-//            if (!empty($lastRating) && (time() - strtotime($lastRating->create_at))<864000){
-//                return [
-//                    'data'=>[],
-//                    'status'=>'error',
-//                    'message' => 'Нельзя добавлять оценку чаще чем 1 раз в 10 дней. Последняя оценка в '.$lastRating->create_at
-//                ];
-//            }
+            $lastRating = Rating::find()->select('create_at')->where(['device_id'=>$device_id, 'hospital_id'=>$hospital])->orderBy('create_at desc')->one();
+            if (!empty($lastRating) && (time() - strtotime($lastRating->create_at))<864000){
+                return [
+                    'data'=>[],
+                    'status'=>'error',
+                    'message' => 'Нельзя добавлять оценку чаще чем 1 раз в 10 дней. Последняя оценка в '.$lastRating->create_at
+                ];
+            }
             $ratingModel = new Rating();
             $ratingModel->hospital_id = $hospital;
             $ratingModel->rating = $rating;
