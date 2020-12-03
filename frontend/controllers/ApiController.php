@@ -37,15 +37,6 @@ class ApiController extends Controller
 
 
     /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-    /**
      * @param int $limit
      * @param string $region
      * @param int $page

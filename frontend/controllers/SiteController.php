@@ -34,7 +34,18 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionApi()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->actionLogin();
+        }
+        return $this->render('api');
+    }
 
     /**
      * Logs in a user.
