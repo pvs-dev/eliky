@@ -191,7 +191,7 @@ class ApiController extends Controller
     public function actionMailHospitals(){
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $hospitals = MailHospital::find()->orderBy('rergion')->all();
+        $hospitals = MailHospital::find()->select(new Expression('id, rergion, hospital, address,phone,email,IFNULL(rating, 0) as rating'))->orderBy('rergion')->all();
         return [
             'data'=>$hospitals,
             'status'=>'success'
