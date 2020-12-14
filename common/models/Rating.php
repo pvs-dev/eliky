@@ -79,7 +79,7 @@ class Rating extends \yii\db\ActiveRecord
     public function setAverageRating()
     {
         if (!empty($this->level) || !empty($this->condition) || !empty($this->availability) || !empty($this->attitude)) {
-            $this->level = ($this->level + $this->condition + $this->availability + $this->attitude) / 4;
+            $this->rating = ($this->level + $this->condition + $this->availability + $this->attitude) / 4;
         }
     }
 
