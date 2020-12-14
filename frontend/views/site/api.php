@@ -63,7 +63,11 @@ $this->title = 'liky api';
                 <div class="api_about">
                     {<br>
                     &emsp;'email_hospital_id':'5',<br>
-                    &emsp;'rating':'5',<br>
+                    &emsp;'rating':'5', (deprecated)<br>
+                    &emsp;'level':'5',<br>
+                    &emsp;'condition':'5',<br>
+                    &emsp;'availability':'5',<br>
+                    &emsp;'attitude':'5',<br>
                     &emsp;'name':'Василий',<br>
                     &emsp;'comment':'this is my favorite hospital',<br>
                     &emsp;'device_id':'any$ym0LS'<br>

@@ -256,6 +256,10 @@ class ApiController extends Controller
         if (Yii::$app->request->post()) {
             $hospital = Yii::$app->request->post('email_hospital_id');
             $rating = Yii::$app->request->post('rating');
+            $level = Yii::$app->request->post('level');
+            $condition = Yii::$app->request->post('condition');
+            $availability = Yii::$app->request->post('availability');
+            $attitude = Yii::$app->request->post('attitude');
             $comment = Yii::$app->request->post('comment');
             $device_id = Yii::$app->request->post('device_id');
             $name = Yii::$app->request->post('name');
@@ -271,9 +275,14 @@ class ApiController extends Controller
             $ratingModel = new Rating();
             $ratingModel->hospital_id = $hospital;
             $ratingModel->rating = $rating;
+            $ratingModel->level = $level;
+            $ratingModel->condition = $condition;
+            $ratingModel->availability = $availability;
+            $ratingModel->attitude = $attitude;
             $ratingModel->name = $name;
             $ratingModel->comment = $comment;
             $ratingModel->device_id = $device_id;
+            $ratingModel->setAverageRating();
             if($ratingModel->save()){
                 $ratingModel->calcRating();
                 return [

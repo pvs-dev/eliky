@@ -10,11 +10,15 @@ use yii\helpers\VarDumper;
  *
  * @property int $id
  * @property int|null $hospital_id
- * @property int|null $rating
+ * @property double|null $rating
  * @property string|null $name
  * @property string|null $device_id
  * @property string|null $comment
  * @property string|null $create_at
+ * @property integer|null $level
+ * @property integer|null $condition
+ * @property integer|null $availability
+ * @property integer|null $attitude
  *
  * @property MailHospital $hospital
  */
@@ -34,7 +38,8 @@ class Rating extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hospital_id','rating'], 'integer'],
+            [['rating'], 'double'],
+            [['hospital_id', 'level', 'condition', 'availability', 'attitude'], 'integer'],
             [['comment'], 'string'],
             [['name', 'device_id'], 'string', 'max' => 255],
             [['hospital_id'], 'exist', 'skipOnError' => true, 'targetClass' => MailHospital::className(), 'targetAttribute' => ['hospital_id' => 'id']],
@@ -54,6 +59,10 @@ class Rating extends \yii\db\ActiveRecord
             'name' => 'name',
             'device_id' => 'Device ID',
             'comment' => 'Comment',
+            'level' => 'level',
+            'condition' => 'condition',
+            'availability' => 'availability',
+            'attitude' => 'attitude',
         ];
     }
 
@@ -67,9 +76,17 @@ class Rating extends \yii\db\ActiveRecord
         return $this->hasOne(MailHospital::className(), ['id' => 'hospital_id']);
     }
 
-    public function calcRating(){
+    public function setAverageRating()
+    {
+        if (!empty($this->level) || !empty($this->condition) || !empty($this->availability) || !empty($this->attitude)) {
+            $this->level = ($this->level + $this->condition + $this->availability + $this->attitude) / 4;
+        }
+    }
+
+    public function calcRating()
+    {
         $hospital = $this->hospital;
-        $avg_rate = Rating::find()->select('sum(rating)/count(id) as avgRating')->where(['hospital_id'=>$this->hospital_id])->asArray()->scalar();
+        $avg_rate = Rating::find()->select('sum(rating)/count(id) as avgRating')->where(['hospital_id' => $this->hospital_id])->asArray()->scalar();
         $hospital->rating = $avg_rate;
         $hospital->save();
     }
